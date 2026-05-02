@@ -20,6 +20,7 @@
 #include "main.h"
 #include <stdio.h>
 #include "mpu6050.h"
+#include <string.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -31,7 +32,7 @@
 /* USER CODE BEGIN PTD */
 
 /* USER CODE END PTD */
-
+I2C_HandleTypeDef hi2c2;
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 
@@ -43,8 +44,6 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-//I2C_HandleTypeDef hi2c2;
-
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
@@ -97,14 +96,26 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 
+  extern float roll,pitch,yaw; //accessing it from driver file as they are global variables
+
   /* USER CODE END 2 */
-  wake_up_mpu();
+  mpu_init();
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
     /* USER CODE END WHILE */
 	  read_raw_data();
+	  combined_data();
+	  scaled_value();
+	  calculate_rpy();
+	  filtered_rpy();
+
+	  char buffer[100];
+
+	  sprintf(buffer, "Roll: %.2f Pitch: %.2f Yaw: %.2f\r\n", roll, pitch, yaw); //convert it into readable string and store it in buffer
+	  HAL_UART_Transmit(&huart1, (uint8_t*)buffer, strlen(buffer), 100);
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

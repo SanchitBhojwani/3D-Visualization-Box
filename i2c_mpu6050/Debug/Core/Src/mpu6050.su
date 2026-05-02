@@ -1,0 +1,6 @@
+../Core/Src/mpu6050.c:18:5:mpu_init	32	static
+../Core/Src/mpu6050.c:35:5:read_raw_data	24	static
+../Core/Src/mpu6050.c:41:5:combined_data	4	static
+../Core/Src/mpu6050.c:54:5:scaled_value	8	static
+../Core/Src/mpu6050.c:67:5:calculate_rpy	24	static
+../Core/Src/mpu6050.c:75:5:filtered_rpy	24	static

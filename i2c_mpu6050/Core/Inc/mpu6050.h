@@ -11,7 +11,15 @@
 #define GYRO_CONFIG 0x1B
 #define ACCEL_CONFIG 0x1C
 
+#define ACCEL_SCALED_VALUE 16384
+#define GYRO_SCALED_VALUE 131
+#define M_PI 3.14159265358979323846
+
 int mpu_init(void);
 int read_raw_data(void);
+int combined_data(void);
+int scaled_value(void);
+int calculate_rpy(void);
+int filtered_rpy(void);
 
 #endif /* INC_MPU6050_H_ */
